@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { routing } from './transport.routing';
-import { CommonModule } from '@angular/common';  
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 
 
 import { TransportComponent } from './transport.component';
@@ -12,7 +14,8 @@ import { TransmissionComponent } from './transmission/transmission.component';
 @NgModule({
     imports: [
         CommonModule,
-        routing
+        routing,
+        FormsModule
     ],
     declarations: [
         TransportComponent,

@@ -1,2 +1,191 @@
-
 <h2>ENGINE</h2>
+
+<div align="right" style="padding:10px">
+    <button type="button" class="btn btn-outline-warning" (click)="addGridDataPopup()">Add Grid </button>
+</div>
+<table class="table table-dark" style="border:1px solid #ddd">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>TemperatureF</th>
+            <th>Temperaturec</th>
+            <th>Active</th>
+            <th>EDIT</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let grid of gridData">
+            <td> {{grid.dateFormatted}}</td>
+            <td> {{grid.temperatureF}}</td>
+            <td> {{grid.temperatureC}}</td>
+            <td><input type="checkbox" [(ngModel)]='grid.active' disabled></td>
+            <td (click)="editGridData(grid)"><span class="glyphicon glyphicon-eye-open"></span></td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<div class="backdrop" [ngStyle]="{'display':editDisplay}"></div>
+<div class="backdrop" [ngStyle]="{'display':addDisplay}"></div>
+
+<!--=================================
+          ADD MODAL POPUP
+   ==============================-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':addDisplay}" *ngIf="addGrid">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="closeDialog()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Add Grid</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row ">
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>dateFormatted:</label>
+                            <input type="text" [(ngModel)]="addGridObj.dateFormatted" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>temperatureC:</label>
+                            <input type="text" [(ngModel)]="addGridObj.temperatureC" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>temperatureF:</label>
+                            <input type="text" [(ngModel)]="addGridObj.temperatureF" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>summary:</label>
+                            <input type="text" [(ngModel)]="addGridObj.summary" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>username:</label>
+                            <input type="text" [(ngModel)]="addGridObj.username" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>mobileNumber:</label>
+                            <input type="text" [(ngModel)]="addGridObj.mobileNumber" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>Gender</label>
+                            <select class="form-control" [(ngModel)]="addGridObj.gender">
+                                <option *ngFor="let agen of genderTypes" [ngValue]="agen.name">{{agen.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>Role</label>
+                            <select class="form-control" [(ngModel)]="addGridObj.role">
+                                <option *ngFor="let arle of roleTypes " [ngValue]="arle.name">{{arle.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>Active:</label>
+                            <input type="checkbox" [(ngModel)]="addGridObj.active">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-default " (click)="closeDialog() ">Close</button>
+                <button type="button" class="btn btn-primary " (click)="addGridDataSubmit() ">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--=================================
+          EDIT MODAL POPUP
+   ==================================-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':editDisplay}" *ngIf="selectedGridObj">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="closeDialog()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit Grid</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row ">
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>dateFormatted:</label>
+                            <input type="text" [(ngModel)]="selectedGridObj.dateFormatted" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>temperatureC:</label>
+                            <input type="text" [(ngModel)]="selectedGridObj.temperatureC" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>temperatureF:</label>
+                            <input type="text" [(ngModel)]="selectedGridObj.temperatureF" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>summary:</label>
+                            <input type="text" [(ngModel)]="selectedGridObj.summary" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>username:</label>
+                            <input type="text" [(ngModel)]="selectedGridObj.username" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>mobileNumber:</label>
+                            <input type="text" [(ngModel)]="selectedGridObj.mobileNumber" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>Gender</label>
+                            <select class="form-control">
+                                <option *ngFor="let gen of genderTypes " [selected]="gen.name===selectedGridObj.gender ">{{gen.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>Role</label>
+                            <select class="form-control">
+                                <option *ngFor="let rle of roleTypes " [selected]="rle.name===selectedGridObj.role">{{rle.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>Active:</label>
+                            <input type="checkbox" [(ngModel)]="selectedGridObj.active" [checked]="selectedGridObj.active == 'false' ? 0 : 1">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-default " (click)="closeDialog() ">Close</button>
+                <button type="button" class="btn btn-primary " (click)="updateGridData() ">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
