@@ -14,7 +14,7 @@ export const routes: Routes = [
         path: '',
         component: TransportComponent,
         children: [
-            { path: '', redirectTo: 'global_settings', pathMatch: 'full' },
+            { path: '', redirectTo: 'engine', pathMatch: 'full' },
             { path: 'global_settings', component: GlobalSettings },
             { path: 'vehicle', component: VehicleComponent },
             { path: 'engine', component: EngineComponent },
